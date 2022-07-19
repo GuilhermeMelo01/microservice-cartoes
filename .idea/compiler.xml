@@ -9,11 +9,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
         <module name="mscliente" />
+        <module name="mscartoes" />
         <module name="mscloudgateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eurekaserver" target="17" />
+      <module name="mscartoes" target="17" />
       <module name="mscliente" target="17" />
       <module name="mscloudgateway" target="17" />
     </bytecodeTargetLevel>
@@ -21,6 +23,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eurekaserver" options="-parameters" />
+      <module name="mscartoes" options="-parameters" />
       <module name="mscliente" options="-parameters" />
       <module name="mscloudgateway" options="-parameters" />
     </option>

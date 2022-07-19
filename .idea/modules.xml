@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/eurekaserver/eurekaserver.iml" filepath="$PROJECT_DIR$/eurekaserver/eurekaserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/microservice-nietzsche.iml" filepath="$PROJECT_DIR$/.idea/microservice-nietzsche.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mscartoes/mscartoes.iml" filepath="$PROJECT_DIR$/mscartoes/mscartoes.iml" />
       <module fileurl="file://$PROJECT_DIR$/mscliente/mscliente.iml" filepath="$PROJECT_DIR$/mscliente/mscliente.iml" />
       <module fileurl="file://$PROJECT_DIR$/mscloudgateway/mscloudgateway.iml" filepath="$PROJECT_DIR$/mscloudgateway/mscloudgateway.iml" />
     </modules>
