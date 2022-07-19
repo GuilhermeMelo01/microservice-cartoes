@@ -2,6 +2,7 @@ package io.github.guilhermemelo01.mscliente.application;
 
 import io.github.guilhermemelo01.mscliente.application.dto.ClienteSaveRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,12 +12,14 @@ import java.net.URI;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("clientes")
+@Slf4j
 public class ClienteResource {
 
     private final ClienteService service;
 
     @GetMapping
     public String status(){
+        log.info("Obtendo o status do microservice dos clientes");
         return "ok";
     }
 
