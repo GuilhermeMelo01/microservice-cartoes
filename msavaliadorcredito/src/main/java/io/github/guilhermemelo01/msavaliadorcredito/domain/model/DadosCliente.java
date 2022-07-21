@@ -6,6 +6,6 @@ import lombok.Data;
 public class DadosCliente {
 
     private Long id;
-    private String nome;
+    private String nome;    
 
 }
