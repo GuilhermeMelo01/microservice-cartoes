@@ -1,8 +1,11 @@
 package io.github.guilhermemelo01.msavaliadorcredito.application;
 
+import io.github.guilhermemelo01.msavaliadorcredito.application.ex.DadosClientesNotFoundException;
+import io.github.guilhermemelo01.msavaliadorcredito.application.ex.ErroComunicacaoMicroserviceException;
 import io.github.guilhermemelo01.msavaliadorcredito.domain.model.SituacaoCliente;
 import io.github.guilhermemelo01.msavaliadorcredito.service.AvaliadorCreditoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,10 +25,15 @@ public class AvaliadorCreditoController {
     }
 
     @RequestMapping(value = "situacao-cliente", params = "cpf", method = RequestMethod.GET)
-    public ResponseEntity<SituacaoCliente> consultaSituacaoCliente(@RequestParam("cpf") String cpf){
-        SituacaoCliente situacaoCliente = avaliadorCreditoService.obterSituacaoCliente(cpf);
-        return ResponseEntity.ok(situacaoCliente);
+    public ResponseEntity consultaSituacaoCliente(@RequestParam("cpf") String cpf){
+        SituacaoCliente situacaoCliente = null;
+        try {
+            situacaoCliente = avaliadorCreditoService.obterSituacaoCliente(cpf);
+            return ResponseEntity.ok(situacaoCliente);
+        } catch (DadosClientesNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (ErroComunicacaoMicroserviceException e) {
+            return ResponseEntity.status(HttpStatus.resolve(e.getStatus())).body(e.getMessage());
+        }
     }
-
-
 }
