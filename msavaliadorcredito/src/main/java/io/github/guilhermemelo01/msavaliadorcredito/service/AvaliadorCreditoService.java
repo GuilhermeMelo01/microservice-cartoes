@@ -3,9 +3,11 @@ package io.github.guilhermemelo01.msavaliadorcredito.service;
 import feign.FeignException;
 import io.github.guilhermemelo01.msavaliadorcredito.application.ex.DadosClientesNotFoundException;
 import io.github.guilhermemelo01.msavaliadorcredito.application.ex.ErroComunicacaoMicroserviceException;
+import io.github.guilhermemelo01.msavaliadorcredito.application.ex.ErroSolicitacaoCartaoException;
 import io.github.guilhermemelo01.msavaliadorcredito.domain.model.*;
 import io.github.guilhermemelo01.msavaliadorcredito.infra.clients.CartoesResourceCliente;
 import io.github.guilhermemelo01.msavaliadorcredito.infra.clients.ClienteResourceClient;
+import io.github.guilhermemelo01.msavaliadorcredito.infra.mqueue.SolicitacaoEmissaoCartaoPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +24,7 @@ public class AvaliadorCreditoService {
 
     private final ClienteResourceClient clientesCliente;
     private final CartoesResourceCliente cartoesCliente;
+    private final SolicitacaoEmissaoCartaoPublisher emissaoCartaoPublisher;
 
     public SituacaoCliente obterSituacaoCliente(String cpf)
             throws DadosClientesNotFoundException, ErroComunicacaoMicroserviceException {
@@ -78,4 +82,15 @@ public class AvaliadorCreditoService {
             throw new ErroComunicacaoMicroserviceException(e.getMessage(), status);
         }
     }
+
+    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados){
+        try {
+            emissaoCartaoPublisher.solicitarCartao(dados);
+            var protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartao(protocolo);
+        }catch (Exception e){
+            throw new ErroSolicitacaoCartaoException(e.getMessage());
+        }
+    }
+
 }
