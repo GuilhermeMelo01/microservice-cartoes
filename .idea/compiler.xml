@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
-        <module name="mscliente" />
         <module name="mscartoes" />
+        <module name="mscliente" />
         <module name="mscloudgateway" />
         <module name="msavaliadorcredito" />
       </profile>

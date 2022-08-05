@@ -1,5 +1,4 @@
 FROM openjdk:17.0.1-jdk-oracle
 WORKDIR /app
-COPY ./target/eurekaserver-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8761
+COPY ./target/mscartoes-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT java -jar app.jar
